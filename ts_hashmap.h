@@ -16,6 +16,8 @@ typedef struct ts_hashmap_t {
    int size;
 } ts_hashmap_t;
 
+extern pthread_mutex_t lock;
+
 // function declarations
 ts_hashmap_t *initmap(int capacity);
 int get(ts_hashmap_t *map, int key);

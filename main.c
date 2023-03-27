@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include "ts_hashmap.h"
 
+#define OPS_TO_PERFORM 1000
+
 ts_hashmap_t *newMap;
 int num_threads;
 int hash_cap;
@@ -13,9 +15,9 @@ void* threadTester(void *arg) {
   int id = *(int*)arg;
   srand(id); // Seed the random number generator with the thread ID so consistent output
   
-  for (int i = 0; i < 1000; i++) {
-    int key = rand() % 10000;
-    int val = rand() % 10000;
+  for (int i = 0; i < OPS_TO_PERFORM; i++) {
+    int key = rand() % 100;
+    int val = rand() % 100;
     
     // Perform a random operation with equal probability
     int op = rand() % 3;

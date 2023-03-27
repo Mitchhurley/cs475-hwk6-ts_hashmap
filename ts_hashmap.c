@@ -75,22 +75,18 @@ int put(ts_hashmap_t *map, int key, int value) {
   }
   
   // Key does not exist, add it to the linked list if size allows
-  if (lf(map) < 1.0){
-    ts_entry_t *newEntry = (ts_entry_t*) malloc(sizeof(ts_entry_t));
-    newEntry->key = key;
-    newEntry->value = value;
-    newEntry->next = map->table[hash];
-    map->table[hash] = newEntry;
-    map->size++;
-    pthread_mutex_unlock(&lock);
-    return INT_MAX;
+  
+  ts_entry_t *newEntry = (ts_entry_t*) malloc(sizeof(ts_entry_t));
+  newEntry->key = key;
+  newEntry->value = value;
+  newEntry->next = map->table[hash];
+  map->table[hash] = newEntry;
+  map->size++;
+  pthread_mutex_unlock(&lock);
+  return INT_MAX;
+  
   }
-  else{
-    pthread_mutex_unlock(&lock);
-    //TODO handle issue of full list
-    return 1;
-  }
-}
+
 
 /**
  * Removes an entry in the map
